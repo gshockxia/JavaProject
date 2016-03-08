@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.ViewFlipper;
 
 public class MainActivity extends AppCompatActivity {
 
+    private float startX;
     private ViewFlipper viewFlipper;
     private int[] resId={R.mipmap.chopper,R.mipmap.law,R.mipmap.naruto,R.mipmap.rayleigh};
 
@@ -23,27 +25,46 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         viewFlipper=(ViewFlipper)findViewById(R.id.flipper);
         //动态导入的方式为ViewFlipper
         for(int i=0;i<resId.length;i++){
             viewFlipper.addView(getImageView(resId[i]));
         }
         //为ViewFlipper添加动画效果
-        viewFlipper.setInAnimation(this,R.anim.left_in);
-        viewFlipper.setInAnimation(this,R.anim.left_out);
-        viewFlipper.setFlipInterval(3000);
-        viewFlipper.startFlipping();
+       // viewFlipper.setInAnimation(this,R.anim.left_in);
+       // viewFlipper.setInAnimation(this,R.anim.left_out);
+       // viewFlipper.setFlipInterval(3000);
+       // viewFlipper.startFlipping();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+                startX = event.getX();
+
+                break;
+            }
+            case MotionEvent.ACTION_MOVE: {
+                if (event.getX() - startX > 100) {
+                    viewFlipper.setInAnimation(this, R.anim.left_in);
+                    viewFlipper.setOutAnimation(this, R.anim.left_out);
+                    viewFlipper.showPrevious();//显示前一页
+                }
+                if (startX - event.getX() > 100) {
+                    viewFlipper.setInAnimation(this, R.anim.right_in);
+                    viewFlipper.setOutAnimation(this, R.anim.right_out);
+                    viewFlipper.showNext();//显示前一页
+
+                }
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                break;
+            }
+        }
+        return super.onTouchEvent(event);
+    }
 
     private ImageView getImageView(int resId){
         ImageView image=new ImageView(this);
