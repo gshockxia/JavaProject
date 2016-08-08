@@ -1,13 +1,13 @@
 package www.xiaaix.com.acitvitylifecycle;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 /**
  * Created by Monster on 2016/6/27.
  */
-public class NormalActivity extends AppCompatActivity {
+public class NormalActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
