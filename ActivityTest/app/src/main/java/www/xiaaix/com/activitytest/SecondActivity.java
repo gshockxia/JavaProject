@@ -11,6 +11,14 @@ import android.widget.Button;
  * Created by Monster on 2016/7/31.
  */
 public class SecondActivity extends BaseActivity{
+
+    /*public static void actionStart(Context context,String data1,String data2){
+        Intent intent=new Intent(context,SecondActivity.class);
+        intent.putExtra("param1",data1);
+        intent.putExtra("param2",data2);
+        context.startActivity(intent);
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +29,12 @@ public class SecondActivity extends BaseActivity{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SecondActivity.this,ThirdActivity.class);
-                startActivity(intent);
+                Intent intent=new Intent();
+                intent.putExtra("data_return","Hello FirstActivity");
+                setResult(RESULT_OK,intent);
+                finish();
+                /*Intent intent=new Intent(SecondActivity.this,ThirdActivity.class);
+                startActivity(intent);*/
                 /*Intent intent=new Intent();
                 intent.putExtra("data_return","Hello FirstActivity");
                 setResult(RESULT_OK,intent);

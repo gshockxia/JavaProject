@@ -28,7 +28,7 @@ public class FirstActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 /*Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
                 startActivityForResult(intent,1);*/
                 /*String data="Hello SecondActivity";
